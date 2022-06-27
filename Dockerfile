@@ -9,13 +9,14 @@ WORKDIR /src
 COPY ["WebApiKevinPincay.csproj", "./"]
 RUN dotnet restore "WebApiKevinPincay.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "WebApiKevinPincay.csproj" -c Release -o /app/build
+# WORKDIR "/src/."
+# RUN dotnet build "WebApiKevinPincay.csproj" -c Release -o /app/build
 
-FROM build AS publish
+# FROM build AS publish
 RUN dotnet publish "WebApiKevinPincay.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+# COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApiKevinPincay.dll"]
