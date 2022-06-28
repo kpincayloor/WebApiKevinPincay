@@ -6,14 +6,12 @@ using WebApiKevinPincay.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var server = builder.Configuration["DbServer"] ?? "localhost, 1450";
+var server = builder.Configuration["DbServer"] ?? "host.docker.internal";
 var user = builder.Configuration["DbUser"] ?? "SA";
-var password = builder.Configuration["Password"] ?? "p@ssw0rd";
+var password = builder.Configuration["Password"] ?? "Passw0rd123";
 var database = builder.Configuration["Database"] ?? "BaseDatos";
-var trustedConnection = builder.Configuration["Trusted_Connection"] ?? "False";
-var multipleActiveResultSets = builder.Configuration["MultipleActiveResultSets"] ?? "True";
 
-var connectionString = $"Server={server};User Id={user};password={password}; Database={database}; Trusted_Connection={trustedConnection}; MultipleActiveResultSets={multipleActiveResultSets}";
+var connectionString = $"Initial Catalog={database}; Data Source={server};User ID={user};Password={password}";
 
 // Add services to the container.
 builder.Services
